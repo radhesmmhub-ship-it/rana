@@ -892,7 +892,7 @@ document.querySelectorAll('.testi-grid .testi-card').forEach((card, i) => {
   card.style.transitionDelay = (i * 0.15) + 's';
 });
 
-// ============ CTA BUTTON CLICK RIPPLE ============
+// ============ CTA BUTTON CLICK RIPPLE + META PIXEL SUBSCRIBE TRACKING ============
 document.querySelectorAll('.cta-btn').forEach(btn => {
   btn.addEventListener('click', function(e) {
     const ripple = document.createElement('span');
@@ -907,6 +907,11 @@ document.querySelectorAll('.cta-btn').forEach(btn => {
     document.head.insertAdjacentHTML('beforeend', `<style>@keyframes ripple{to{transform:scale(40);opacity:0}}</style>`);
     this.appendChild(ripple);
     setTimeout(() => ripple.remove(), 700);
+
+    // Fire Meta Pixel Subscribe event when user clicks the Telegram join button
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Subscribe');
+    }
   });
 });
 
